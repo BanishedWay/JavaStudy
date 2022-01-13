@@ -23,5 +23,19 @@ public class ArrayListTest {
         for (Employee employee : staff) {
             System.out.println(employee);
         }
+
+        double m = maxDouble(1.0, 2.0, 3.0);
+        System.out.println(m);
+
+    }
+
+    public static double maxDouble(double... values) {
+        double largest = Double.NEGATIVE_INFINITY;
+        for (double v : values) {
+            if (v > largest) {
+                largest = v;
+            }
+        }
+        return largest;
     }
 }
