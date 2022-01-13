@@ -1,13 +1,14 @@
-package testStatic;
+package testAbstract;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author 许劲淇
  * @date 2022/1/7 19:19
  */
 
-public class Employee {
+public class Employee extends Person {
 
     /*
     用户变量：姓名、薪水、编号
@@ -15,15 +16,10 @@ public class Employee {
      */
     private static int nextID = 1;
 
-    private String name;
     private double salary;
     private LocalDate hireDay;
 
     private int id;
-
-    public Employee() {
-
-    }
 
     /**
      * 构造方法，通过姓名和薪资初始化对象
@@ -32,7 +28,7 @@ public class Employee {
      * @param salary 员工薪水
      */
     public Employee(String name, double salary) {
-        this.name = name;
+        super(name);
         this.salary = salary;
         id = 0;
     }
@@ -47,7 +43,7 @@ public class Employee {
      * @param day    雇佣日
      */
     public Employee(String name, double salary, int year, int month, int day) {
-        this.name = name;
+        super(name);
         this.salary = salary;
         this.hireDay = LocalDate.of(year, month, day);
     }
@@ -71,8 +67,9 @@ public class Employee {
         return hireDay;
     }
 
-    public String getName() {
-        return this.name;
+    @Override
+    public String getDescription() {
+        return String.format("An employee with a salary 0f ￥%.2f", salary);
     }
 
     public double getSalary() {
@@ -99,5 +96,19 @@ public class Employee {
     public void raiseSalary(double byPercent) {
         double raise = this.salary * byPercent / 100;
         this.salary += raise;
+    }
+
+    public boolean equals(Employee e) {
+        return Objects.equals(this.getName(), e.getName()) && this.getSalary() == e.getSalary();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), this.getSalary(), this.getHireDay());
+    }
+
+    @Override
+    public String toString() {
+        return "Employee [name = " + this.getName() + ",salary = " + this.getSalary() + "]";
     }
 }
